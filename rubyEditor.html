@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="copyright" content="Copyright (c) IBM Corporation and others 2011.">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src="plugin.js"></script>
+<script type="text/javascript" src="rubyContentAssist.js"></script>
+<script type="text/javascript" src="rubyGrammar.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	var provider = new eclipse.PluginProvider();
+	
+	(function() {
+		// Content assist
+		provider.registerServiceProvider("orion.edit.contentAssist",
+			new RubyContentAssistProvider(), 
+			{name: "Ruby content assist", pattern: "\\.(ru|rb)$"});
+
+		// Syntax highlighting
+		provider.registerServiceProvider("orion.edit.highlighter", {/*no impl needed*/}, RubyGrammar);
+	
+		// Register our editor for *.ru
+		var serviceProperties = {
+			name: "Orion ruby editor",
+			href: "../edit/edit.html#${Location}",
+			validationProperties: {Name: "*.(ru|rb)"}
+		};
+		provider.registerServiceProvider("orion.navigate.openWith", {/*no impl needed*/}, serviceProperties);
+	}());
+	
+	provider.connect();
+};
+</script>
+</head>
+<body>
+</body>
+</html>
