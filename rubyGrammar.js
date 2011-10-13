@@ -43,7 +43,13 @@ var RubyGrammar = (function() {
 					//block comments
 					"begin": "=begin",
 					"end": "=end",
-					"contentName": "comment.block.documentation"
+					"contentName": "comment.block.documentation",
+					"beginCaptures": {
+						"0": { "name": "punctuation.definition.comment.ruby" }
+					},
+					"endCaptures": {
+						"0": { "name": "punctuation.definition.comment.ruby" }
+					}
 				}
 			],
 			"repository": {
