@@ -48,7 +48,7 @@ var RubyGrammar = (function() {
 				{  
 					//line comment
 					"name" : "comment.line.ruby",
-					"match" : "#.*$"
+					"match" : "#.*"
 				},
 				{  
 					//keywords
