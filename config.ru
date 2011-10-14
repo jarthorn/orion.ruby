@@ -1,6 +1,7 @@
 use Rack::Static, 
-  :urls => ["/plugin.js", "rubyContentAssist.js", "rubyEditor.html", "rubyGrammar.js"],
+  :urls => ["/rubyEditor.html", "/plugin.js", "rubyGrammar.js", "rubyContentAssist.js"]
   :root => "public"
+  
 run lambda { |env|
   [
     200, 
