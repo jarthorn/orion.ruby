@@ -38,7 +38,13 @@ var RubyGrammar = (function() {
 		grammar: {
 			"name": "Ruby",
 			"scopeName": "source.ruby",
-			"patterns": [{
+			"patterns": [
+			{
+				//string
+				"name":"string.quoted.double",
+				"match":"(\")[^\"]+(\")"
+			},
+			{
 				//block comments
 				"begin": "=begin",
 				"end": "=end",
