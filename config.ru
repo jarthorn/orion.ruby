@@ -1,3 +1,6 @@
+#Heroku app location: http://radiant-night-3911.heroku.com/
+#Heroku Git location: git@heroku.com:radiant-night-3911.git
+
 use Rack::Static, 
   :urls => ["/rubyEditor.html", "/plugin.js", "/rubyGrammar.js", "/rubyContentAssist.js"],
   :root => "public"
