@@ -22,14 +22,14 @@ var RubyGrammar = (function() {
 		 * @type String
 		 */
 		type: "grammar",
-		
+
 		/**
 		 * The file extensions that we provide rules for.
 		 * @public
 		 * @type String[]
 		 */
-		fileTypes: [ "ru", "rb" ],
-		
+		fileTypes: ["ru", "rb"],
+
 		/**
 		 * Object containing the grammar rules.
 		 * @public
@@ -38,24 +38,32 @@ var RubyGrammar = (function() {
 		grammar: {
 			"name": "Ruby",
 			"scopeName": "source.ruby",
-			"patterns": [
-				{
-					//block comments
-					"begin": "=begin",
-					"end": "=end",
-					"name": "comment.block.documentation"
+			"patterns": [{
+				//block comments
+				"begin": "=begin",
+				"end": "=end",
+				"name": "comment.block.documentation",
+				"beginCaptures": {
+					"0": {
+						"name": "comment.block.documentation"
+					}
 				},
-				{  
-					//line comment
-					"name" : "comment.line.ruby",
-					"match" : "#.*"
-				},
-				{  
-					//keywords
-					"name" : "keyword.control.ruby",
-					"match" : "\\b(__ENCODING__|__END__|__FILE__|__LINE__|alias|and|begin|break|case|class|def|defined?|do|else|elsif|end|ensure|false|for|if|in|module|next|nil|not|or|redo|rescue|retry|return|self|super|then|true|undef|unless|until|when|while|yield)\\b"
+				"endCaptures": {
+					"0": {
+						"name": "comment.block.documentation"
+					}
 				}
-			],
+			},
+			{
+				//line comment
+				"name": "comment.line.ruby",
+				"match": "#.*"
+			},
+			{
+				//keywords
+				"name": "keyword.control.ruby",
+				"match": "\\b(__ENCODING__|__END__|__FILE__|__LINE__|alias|and|begin|break|case|class|def|defined?|do|else|elsif|end|ensure|false|for|if|in|module|next|nil|not|or|redo|rescue|retry|return|self|super|then|true|undef|unless|until|when|while|yield)\\b"
+			}],
 			"repository": {
 				"attrName": { // attribute name
 					"match": "[A-Za-z\\-:]+(?=\\s*=\\s*['\"])",
