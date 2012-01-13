@@ -8,9 +8,9 @@ ARGV.each {|f|
 puts f
 counter = 0
 file = File.open(f,"r")
-   ftmp = f+".tmp"
-   tmp = File.open(ftmp,"w")
-   while line = file.gets
+ftmp = f+".tmp"
+tmp = File.open(ftmp,"w")
+while line = file.gets
    if line =~ /pid="2"/
      counter += 1
      line = line.gsub(/pid="2"/,"pid=\"#{f}:#{counter}\"")
