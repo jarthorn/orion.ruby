@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 IBM Corporation and others.
+ * Copyright (c) 2011, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials are made 
  * available under the terms of the Eclipse Public License v1.0 
  * (http://www.eclipse.org/legal/epl-v10.html), and the Eclipse Distribution 
@@ -16,11 +16,32 @@ var RubyContentAssistProvider = (function() {
 	function RubyContentAssistProvider() {
 	}
 	RubyContentAssistProvider.prototype = {
-		getKeywords: function(prefix, buffer, selection) {
-			return ["BEGIN","END","__ENCODING__","__END__","__FILE__","__LINE__","alias","and","begin",
+		computeProposals: function(prefix, buffer, selection) {
+			var keywords = ["BEGIN","END","__ENCODING__","__END__","__FILE__","__LINE__","alias","and","begin",
 				"break","case","class","def","defined?","do","else","elsif","end","ensure","false","for",
 				"if","in","module","next","nil","not","or","redo","rescue","retry","return","self","super",
 				"then","true","undef","unless","until","when","while","yield"];
+			var templates = [];
+			var text, description, positions, endOffset;
+			var preceedingChar = buffer.charAt(selection.offset - prefix.length - 1);
+			if (preceedingChar === '=' && "begin".indexOf(prefix) === 0) {
+				//suggest writing a block comment
+				text = "begin\n\n=end";
+				description = "=begin - block comment";
+				endOffset = selection.offset-prefix.length+6;//inside block comment
+				templates.push({proposal: text, description: description, escapePosition: endOffset});
+			}
+			if ("if".indexOf(prefix) === 0) {
+				//if statement
+				text = "if condition\n\t\nend";
+				description = "if - if block";
+				positions = [{offset: selection.offset - prefix.length + 3, length: 9}];
+				endOffset = selection.offset-prefix.length+14;//inside if block
+				templates.push({proposal: text, description: description, positions: positions, escapePosition: endOffset});
+			}
+			//suggest templates before simple keywords
+			return templates.concat(keywords);
+				
 		}
 	};
 	return RubyContentAssistProvider;
