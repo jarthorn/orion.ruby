@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="copyright" content="Copyright (c) IBM Corporation and others 2011.">
+<meta name="copyright" content="Copyright (c) IBM Corporation and others 2011, 2012.">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<script type="text/javascript" src="plugin.js"></script>
-<script type="text/javascript" src="rubyContentAssist.js"></script>
-<script type="text/javascript" src="rubyGrammar.js"></script>
+<script src="plugin.js"></script>
+<script src="rubyContentAssist.js"></script>
 <script type="text/javascript">
+/*global window eclipse RubyContentAssistProvider */
 window.onload = function() {
 	var provider = new eclipse.PluginProvider();
 	
@@ -17,9 +17,6 @@ window.onload = function() {
 			new RubyContentAssistProvider(), 
 			{name: "Ruby content assist", pattern: "\\.(ru|rb)$"});
 
-		// Syntax highlighting
-		provider.registerServiceProvider("orion.edit.highlighter", {/*no impl needed*/}, RubyGrammar);
-	
 		// Register our editor for *.ru
 		var serviceProperties = {
 			name: "Orion ruby editor",
@@ -33,7 +30,6 @@ window.onload = function() {
 };
 </script>
 </head>
-<body>
 <body>
 <h2>Orion Plugin</h2>
 This is a plugin for <a href="http://wiki.eclipse.org/Orion">Orion</a>.
