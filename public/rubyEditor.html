@@ -16,14 +16,6 @@ window.onload = function() {
 		provider.registerServiceProvider("orion.edit.contentAssist",
 			new RubyContentAssistProvider(), 
 			{name: "Ruby content assist", pattern: "\\.(ru|rb)$"});
-
-		// Register our editor for *.ru
-		var serviceProperties = {
-			name: "Orion ruby editor",
-			href: "../edit/edit.html#${Location}",
-			validationProperties: {Name: "*.(ru|rb)"}
-		};
-		provider.registerServiceProvider("orion.navigate.openWith", {/*no impl needed*/}, serviceProperties);
 	}());
 	
 	provider.connect();
