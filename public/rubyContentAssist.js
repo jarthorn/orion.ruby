@@ -23,20 +23,21 @@ var RubyContentAssistProvider = (function() {
 				"then","true","undef","unless","until","when","while","yield"];
 			var templates = [];
 			var text, description, positions, endOffset;
-			var preceedingChar = buffer.charAt(selection.offset - prefix.length - 1);
-			if (preceedingChar === '=' && "begin".indexOf(prefix) === 0) {
+		    var prefixStart = selection.offset - prefix.length;
+			var precedingChar = buffer.charAt(prefixStart - 1);
+			if (precedingChar === '=' && "begin".indexOf(prefix) === 0) {
 				//suggest writing a block comment
 				text = "begin\n\n=end";
 				description = "=begin - block comment";
-				endOffset = selection.offset-prefix.length+6;//inside block comment
+				endOffset = prefixStart+6;//inside block comment
 				templates.push({proposal: text, description: description, escapePosition: endOffset});
 			}
 			if ("if".indexOf(prefix) === 0) {
 				//if statement
 				text = "if condition\n\t\nend";
 				description = "if - if block";
-				positions = [{offset: selection.offset - prefix.length + 3, length: 9}];
-				endOffset = selection.offset-prefix.length+14;//inside if block
+				positions = [{offset: prefixStart + 3, length: 9}];
+				endOffset = prefixStart+14;//inside if block
 				templates.push({proposal: text, description: description, positions: positions, escapePosition: endOffset});
 			}
 			//suggest templates before simple keywords
