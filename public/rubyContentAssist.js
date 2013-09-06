@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2012 IBM Corporation and others.
+ * Copyright (c) 2011, 2013 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials are made 
  * available under the terms of the Eclipse Public License v1.0 
  * (http://www.eclipse.org/legal/epl-v10.html), and the Eclipse Distribution 
@@ -16,7 +16,9 @@ var RubyContentAssistProvider = (function() {
 	function RubyContentAssistProvider() {
 	}
 	RubyContentAssistProvider.prototype = {
-		computeProposals: function(prefix, buffer, selection) {
+		computeProposals: function(buffer, offset, context) {
+			var prefix = context.prefix;
+			var selection = context.selection;
 			var keywords = ["BEGIN","END","__ENCODING__","__END__","__FILE__","__LINE__","alias","and","begin",
 				"break","case","class","def","defined?","do","else","elsif","end","ensure","false","for",
 				"if","in","module","next","nil","not","or","redo","rescue","retry","return","self","super",
