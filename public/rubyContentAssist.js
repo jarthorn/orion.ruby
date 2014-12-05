@@ -25,7 +25,7 @@ var RubyContentAssistProvider = (function() {
 				"then","true","undef","unless","until","when","while","yield"];
 			var templates = [];
 			var text, description, positions, endOffset;
-		    var prefixStart = selection.offset - prefix.length;
+		    var prefixStart = offset - prefix.length;
 			var precedingChar = buffer.charAt(prefixStart - 1);
 			if (precedingChar === '=' && "begin".indexOf(prefix) === 0) {
 				//suggest writing a block comment
@@ -40,10 +40,18 @@ var RubyContentAssistProvider = (function() {
 				description = "if - if block";
 				positions = [{offset: prefixStart + 3, length: 9}];
 				endOffset = prefixStart+14;//inside if block
-				templates.push({proposal: text, description: description, positions: positions, escapePosition: endOffset});
+				templates.push({proposal: text.substring("if".length), description: description, positions: positions, escapePosition: endOffset});
 			}
 			//suggest templates before simple keywords
-			return templates.concat(keywords);
+			return templates.concat(keywords.map(function(keyword) {
+				if (keyword.indexOf(prefix) === 0) {
+					return {
+						proposal: keyword,
+						overwrite: true
+					};
+				}
+				return null; // keyword does not match prefix
+			}));
 				
 		}
 	};
